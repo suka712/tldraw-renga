@@ -1,1 +1,0 @@
-The master prompt goes as follow
