@@ -34,6 +34,10 @@ const router = AutoRouter<IRequest, [env: Env, ctx: ExecutionContext]>({
 
 	.post('/api/auth/verify', handleVerifyOTP)
 
+	.get('/api/auth/me', requireAuth, (request) => {
+		return Response.json({ email: request.email })
+	})
+
 	.all('*', () => {
 		return new Response('Not found', { status: 404 })
 	})

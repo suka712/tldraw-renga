@@ -7,6 +7,18 @@ import { multiplayerAssetStore } from '../multiplayerAssetStore'
 
 export function Room() {
 	const { roomId } = useParams<{ roomId: string }>()
+	const [authed, setAuthed] = useState<boolean | null>(null)
+
+	useEffect(() => {
+		fetch('/api/auth/me')
+			.then(res => {
+				if (!res.ok) {
+					window.location.href = '/portal'
+				} else {
+					setAuthed(true)
+				}
+			})
+	}, [])
 
 	// Create a store connected to multiplayer.
 	const store = useSync({
@@ -15,6 +27,14 @@ export function Room() {
 		// ...and how to handle static assets like images & videos
 		assets: multiplayerAssetStore,
 	})
+
+	if (authed === null) {
+		return (
+			<div className="flex items-center justify-center h-screen">
+				<p className="text-muted-foreground animate-pulse">Loading...</p>
+			</div>
+		)
+	}
 
 	return (
 		<RoomWrapper roomId={roomId}>
