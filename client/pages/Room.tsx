@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Tldraw } from 'tldraw'
 import { getBookmarkPreview } from '../getBookmarkPreview'
 import { multiplayerAssetStore } from '../multiplayerAssetStore'
+import { config } from 'client/config'
 
 export function Room() {
 	const { roomId } = useParams<{ roomId: string }>()
@@ -13,7 +14,7 @@ export function Room() {
 		fetch('/api/auth/me')
 			.then(res => {
 				if (!res.ok) {
-					window.location.href = '/portal'
+					window.location.href = config.LOGIN_URL
 				} else {
 					setAuthed(true)
 				}
@@ -81,8 +82,7 @@ function RoomWrapper({ children, roomId }: { children: ReactNode; roomId?: strin
 				<button
 					className="RoomWrapper-copy"
 					onClick={() => {
-						fetch('/api/auth/logout', { method: 'POST' })
-							.then(() => { window.location.href = '/portal' })
+						window.location.href = config.LOGIN_URL
 					}}
 				>
 					Logout
