@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Tldraw } from 'tldraw'
 import { getBookmarkPreview } from '../getBookmarkPreview'
 import { multiplayerAssetStore } from '../multiplayerAssetStore'
-import { config } from 'client/config'
+import { config } from '../config'
 
 export function Room() {
 	const { roomId } = useParams<{ roomId: string }>()
